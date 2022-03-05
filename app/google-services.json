@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "111613269266",
+    "project_id": "mythic-translator",
+    "storage_bucket": "mythic-translator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111613269266:android:6f1fe5a7f69989dd2c0fcb",
+        "android_client_info": {
+          "package_name": "com.MT.mythictranslator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "111613269266-tljhdua4aokm6dtr5h91l0a22qa383fl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.MT.mythictranslator",
+            "certificate_hash": "93560d3d2fb8d86d180fc1beef6a2588effcb82c"
+          }
+        },
+        {
+          "client_id": "111613269266-r8o5ptl4cnkl61g5c3gmd5025dbtlrk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvH-0sxif3z3vLy6ed4uu2jAfg1EddrXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "111613269266-r8o5ptl4cnkl61g5c3gmd5025dbtlrk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
