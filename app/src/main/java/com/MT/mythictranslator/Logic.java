@@ -51,7 +51,7 @@ public class Logic extends AppCompatActivity {
     Float s = 22f;
     int turn = 1;
     CardView alterLanguageBtn;
-    TextView translateFrom, translateTo;
+    TextView translateFrom, translateTo, sourceCode;
     ImageView micBtn;
     int backButtonCount = 0;
     String fromLanguageCode, toLanguageCode;
@@ -78,6 +78,7 @@ public class Logic extends AppCompatActivity {
         micBtn = findViewById(R.id.MicBtn);
         transparentFilter = findViewById(R.id.bac_dim_layout);
         facebookBtn = findViewById(R.id.facebook);
+        sourceCode = findViewById(R.id.R8);
 
         // LOGIC//
         fromLanguageCode = TranslateLanguage.URDU;
@@ -114,6 +115,16 @@ public class Logic extends AppCompatActivity {
                 }
             }
         });
+
+        sourceCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.putExtra(SearchManager.QUERY, "https://github.com/jaffar02/MythicTranslator");
+                startActivity(intent);
+            }
+        });
+
 
         facebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override

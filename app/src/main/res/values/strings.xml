@@ -10,4 +10,5 @@
     <string name="developer_team">Developer Team</string>
     <string name="developers_names_list">● Jaffar\n● Zuhaib\n● Quinza\n● Areeba</string>
     <string name="clear">CLEAR</string>
+    <string name="sourceCodeLink">https://github.com/jaffar02/MythicTranslator</string>
 </resources>
