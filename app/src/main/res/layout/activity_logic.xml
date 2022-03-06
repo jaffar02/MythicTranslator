@@ -234,7 +234,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dim_background"
-        android:visibility="gone"
+        android:visibility="visible"
         android:elevation="20dp"
         android:clickable="true"
         android:focusable="true"
