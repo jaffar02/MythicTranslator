@@ -275,8 +275,8 @@ public class Logic extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            convertFrom.setText(result.get(0));
             if(!result.get(0).equals("")) {
+                convertFrom.setText(result.get(0));
                 translateLanguage(result.get(0));
             }
             else{
