@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -52,11 +53,11 @@ public class Logic extends AppCompatActivity {
     int turn = 1;
     CardView alterLanguageBtn;
     TextView translateFrom, translateTo, sourceCode;
-    ImageView micBtn;
-    int backButtonCount = 0;
+    ImageView micBtn, speakerBtn, searchBtn;
     String fromLanguageCode, toLanguageCode;
     RelativeLayout transparentFilter;
     LinearLayout facebookBtn;
+    TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,8 @@ public class Logic extends AppCompatActivity {
         transparentFilter = findViewById(R.id.bac_dim_layout);
         facebookBtn = findViewById(R.id.facebook);
         sourceCode = findViewById(R.id.R8);
-
+        speakerBtn = findViewById(R.id.speakBtn);
+        searchBtn = findViewById(R.id.searchBtn);
         // LOGIC//
         fromLanguageCode = TranslateLanguage.URDU;
         toLanguageCode = TranslateLanguage.ENGLISH;
@@ -89,6 +91,7 @@ public class Logic extends AppCompatActivity {
             public void onClick(View view) {
                 convertFrom.setText("");
                 convertTo.setText("");
+                convertTo.setHint("Translation");
             }
         });
 
@@ -162,6 +165,55 @@ public class Logic extends AppCompatActivity {
             }
         });
 
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(convertTo.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Nothing to search!", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                    intent.putExtra(SearchManager.QUERY, convertTo.getText().toString());
+                    startActivity(intent);
+                }
+            }
+        });
+
+        speakerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int i) {
+                        if(convertTo.getText().toString().isEmpty()){
+                            Toast.makeText(getApplicationContext(), "Nothing to speak!", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            if(i == TextToSpeech.SUCCESS){
+                                int result = 0;
+                                if(toLanguageCode.toString().equals("en")) {
+                                    result = textToSpeech.setLanguage(Locale.ENGLISH);
+                                    textToSpeech.setSpeechRate(1f);
+                                    textToSpeech.setPitch(1f);
+                                }
+                                else if(toLanguageCode.toString().equals("ur")){
+                                    result = textToSpeech.setLanguage(new Locale("urd"));
+                                    textToSpeech.setSpeechRate(1);
+                                    textToSpeech.setPitch(1);
+                                }
+                                if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                                    Toast.makeText(getApplicationContext(), "Language not supported!", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    textToSpeech.speak(convertTo.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
 
         alterLanguageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,8 +271,16 @@ public class Logic extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                if(fromLanguageCode.toString().equals("ur")) {
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ur");
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "ur");
+                    intent.putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, "ur");
+                }
+                else if(fromLanguageCode.toString().equals("en")){
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, Locale.ENGLISH);
+                    intent.putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, Locale.ENGLISH);
+                }
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Something");
                 startActivityForResult(intent, 1);
             }

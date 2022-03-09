@@ -207,23 +207,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/MiddleIconsHolder"
             >
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             android:orientation="vertical"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/convertTo"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/alata"
-                android:gravity="top"
-                android:editable="false"
-                android:hint="Translation"
-                android:paddingHorizontal="15dp"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+             <EditText
+                 android:id="@+id/convertTo"
+                 android:layout_width="match_parent"
+                 android:layout_height="180dp"
+                 android:backgroundTint="@color/white"
+                 android:fontFamily="@font/alata"
+                 android:gravity="top"
+                 android:editable="false"
+                 android:hint="Translation"
+                 android:paddingHorizontal="15dp"
+                 android:textSize="22sp"
+                 tools:ignore="SpeakableTextPresentCheck" />
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="end"
+                 android:orientation="horizontal"
+                 >
+                 <ImageView
+                     android:id="@+id/searchBtn"
+                     android:layout_width="38.25dp"
+                     android:layout_height="35.5dp"
+                     android:src="@drawable/search_foreground"
+                     />
+                 <ImageView
+                     android:id="@+id/speakBtn"
+                     android:layout_width="38.25dp"
+                     android:layout_height="35.5dp"
+                     android:src="@drawable/speaker"
+                     />
+             </LinearLayout>
+
+
+         </LinearLayout>
+
+
+
+
 
         </com.google.android.material.card.MaterialCardView>
 
