@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.DownloadManager;
 import android.app.SearchManager;
@@ -58,6 +59,7 @@ public class Logic extends AppCompatActivity {
     RelativeLayout transparentFilter;
     LinearLayout facebookBtn;
     TextToSpeech textToSpeech;
+    SessionManagerPrefrences session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ public class Logic extends AppCompatActivity {
         sourceCode = findViewById(R.id.R8);
         speakerBtn = findViewById(R.id.speakBtn);
         searchBtn = findViewById(R.id.searchBtn);
+
+        session = new SessionManagerPrefrences(this);
         // LOGIC//
         fromLanguageCode = TranslateLanguage.URDU;
         toLanguageCode = TranslateLanguage.ENGLISH;
@@ -94,6 +98,9 @@ public class Logic extends AppCompatActivity {
                 convertTo.setHint("Translation");
             }
         });
+
+
+        convertFrom.setHint("یہاں لکھیں");
 
         textZoomInbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +230,7 @@ public class Logic extends AppCompatActivity {
                    case 1:
                    String buffer = translateFrom.getText().toString();
                    translateFrom.setText(translateTo.getText().toString());
+                   convertFrom.setHint("Enter Text Here");
                    translateTo.setText(buffer);
                    //fromLanguage = "English";
                    //toLanguage = "Urdu";
@@ -238,6 +246,7 @@ public class Logic extends AppCompatActivity {
                    case 2:
                    String buffer1 = translateTo.getText().toString();
                    translateTo.setText(translateFrom.getText().toString());
+                   convertFrom.setHint("یہاں لکھیں");
                    translateFrom.setText(buffer1);
                    //fromLanguage = "Urdu";
                    //toLanguage = "English";
@@ -370,10 +379,43 @@ public class Logic extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        else if(item.getItemId() == R.id.setting){
+            Intent intent = new Intent(this, settings.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     public void filterAction(View view) {
         transparentFilter.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(session.getKeyUserName()!=null) {
+            switch (session.getKeyUserName()) {
+                case "alata":
+                    convertFrom.setTypeface(ResourcesCompat.getFont(this, R.font.alataa));
+                    convertTo.setTypeface(ResourcesCompat.getFont(this, R.font.alataa));
+                    break;
+
+                case "Acme":
+                    convertFrom.setTypeface(ResourcesCompat.getFont(this, R.font.acme));
+                    convertTo.setTypeface(ResourcesCompat.getFont(this, R.font.acme));
+                    break;
+
+                case "monterey":
+                    convertFrom.setTypeface(ResourcesCompat.getFont(this, R.font.monterey));
+                    convertTo.setTypeface(ResourcesCompat.getFont(this, R.font.monterey));
+                    break;
+
+                case "Casual":
+                    convertFrom.setTypeface(ResourcesCompat.getFont(this, R.font.casual));
+                    convertTo.setTypeface(ResourcesCompat.getFont(this, R.font.casual));
+                    break;
+            }
+        }
     }
 }

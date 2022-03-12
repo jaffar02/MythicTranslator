@@ -4,5 +4,7 @@
 
     <item android:title="About" app:showAsAction="never" android:id="@+id/about"/>
 
+    <item android:title="Settings" app:showAsAction="never" android:id="@+id/setting"/>
+
     <item android:title="Exit" app:showAsAction="never" android:id="@+id/exit" />
 </menu>

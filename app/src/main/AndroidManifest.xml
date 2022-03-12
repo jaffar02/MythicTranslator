@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MythicTranslator">
         <activity
+            android:name=".settings"
+            android:exported="true" />
+        <activity
             android:name=".Logic"
-            android:exported="false"
-             />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
